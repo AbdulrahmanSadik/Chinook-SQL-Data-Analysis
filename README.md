@@ -1,101 +1,167 @@
-## 🎵 Chinook Digital Music Store - End-to-End SQL Data Analysis
+# 🎧 Chinook SQL Data Analysis
 
-![NTI Badge](https://img.shields.io/badge/NTI-Data_Analysis_Track-blue)
-![SQL](https://img.shields.io/badge/SQL-Advanced-orange)
-![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+<p align="left">
+  <img src="https://img.shields.io/badge/Track-NTI%20Data%20Analysis-0A66C2?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Database-MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Language-SQL-F29111?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Project%20Status-Completed-2EA44F?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Focus-Business%20Insights-6F42C1?style=for-the-badge" />
+</p>
 
-## 🔗 Quick Links & Resources
-* 📊 **Executive Presentation:** [View Full Presentation on Canva](https://canva.link/ovvgrz1o1yuszva)
-* 💾 **Dataset Source:** [Download Chinook Database Here](https://github.com/lerocha/chinook-database) 
-* 👨‍💻 **Project Type:** NTI Capstone Project
+A portfolio project where I analyzed the **Chinook Digital Music Store** database using SQL to uncover insights about sales, customers, and product performance.
+
+This project was completed as part of the **NTI Data Analysis Track**, with a focus on combining SQL querying with business thinking instead of stopping at raw output.
+
+---
+
+## 📖 About the Project
+
+The Chinook database simulates a digital music store and contains data related to customers, invoices, tracks, albums, genres, employees, and playlists.
+
+In this project, I used SQL to explore the database from different angles:
+- sales performance,
+- customer behavior,
+- market trends,
+- and product-level insights.
+
+My goal was to move beyond technical querying and use the data to answer practical business questions in a clear and structured way.
+
+---
+
+## 🎯 Objectives
+
+- Understand the database structure and relationships.
+- Explore and validate data before analysis.
+- Analyze revenue and transaction patterns.
+- Identify valuable customers and market opportunities.
+- Evaluate genres, tracks, and catalog performance.
+- Translate query results into business insights and recommendations.
 
 ---
 
 ## 🗂️ Database Schema
-The analysis is built on the Chinook Database, which simulates a digital music shop. Below is the Entity-Relationship Diagram (ERD) mapping our joins and business logic:
+
+The project is based on the Chinook sample database.
 
 ![Chinook Database Schema](Assets/schema.png)
 
 ---
 
-## 📌 Project Overview
-This project is an end-to-end data analysis portfolio piece analyzing the **Chinook Digital Music Store** database. It was developed as the capstone project for the **NTI (National Telecommunication Institute) Data Analysis Track**. 
+## 🔍 Analysis Breakdown
 
-The goal of this project goes beyond writing SQL queries; it focuses on extracting actionable **Business Insights**, optimizing content strategy, and advising on marketing segmentation using robust statistical methods and advanced SQL logic.
+### 🧹 Data Exploration & Cleaning
+I started by understanding the schema and checking the quality of the available data before moving into deeper analysis.
 
----
+This stage included:
+- reviewing tables and relationships,
+- checking NULL values,
+- exploring pricing consistency,
+- and understanding the employee hierarchy.
 
-## 🛠️ Phases & Key Business Insights
+### 💰 Sales Analysis
+This part focused on how the business generates revenue and how customer transactions behave over time.
 
-### 🧹 Phase 0: Data Cleaning & Structural Exploration
-**Objective:** Establish data integrity and map the underlying business architecture before conducting financial analysis.
-* **Data Quality Audit:** Engineered an unpivoted NULL-audit query, revealing a 99% completion rate in customer data, but identifying a ~28% gap in Track Composer metadata (handled via 'Anonymous' placeholders).
-* **Pricing Anomalies (Robust Statistics):** Implemented a robust statistical outlier detection using **Interquartile Range (IQR)** to identify pricing anomalies, successfully distinguishing standard tracks ($0.99) from premium video content ($1.99).
-* **Hierarchical Mapping:** Developed a `RECURSIVE CTE` to dynamically map the organizational chart, visualizing the exact chain of command.
+Examples:
+- top customers by total spending,
+- average order value,
+- invoice size patterns,
+- revenue trends,
+- and sales agent contribution.
 
-### 💰 Phase 1: Sales Analysis (Revenue & Performance)
-**Objective:** Evaluate the company's financial health, measure sales agent efficiency, and uncover purchasing patterns.
-* **Basket Size vs. Premium:** Expanded on basic subqueries by combining `Invoice` and `InvoiceLine` to prove that high-value transactions are driven by transaction volume (Basket Size) rather than premium item sales.
-* **Unit Economics (AOV):** Calculated Customer Average Order Value (AOV) to segment VIP clients.
-* **Automated KPIs:** Engineered an automated `YOY_Growth` View utilizing `LAG()` and `CASE` statements to flag yearly revenue as 'Peak' or 'Warning'.
+### 🌍 Customer Analysis
+Here, I explored customer segments and geographic performance to understand where the strongest opportunities exist.
 
-### 🌍 Phase 2: Customer Insight (Demographics & Behavior)
-**Objective:** Segment the customer base, calculate Lifetime Value (LTV), and map geographic product-market fit.
-* **Advanced Segmentation:** Utilized `AVG() OVER()` to dynamically calculate the global average spend, then used `LIMIT/OFFSET` pagination to separate the "Top 5 VIPs" from the "Upper-Middle" customer cohort.
-* **Global Reach & ARPU:** Engineered an ARPU (Average Revenue Per User) metric to evaluate the true profitability of international markets outside the USA.
-* **Geo-Musical Profiling:** Deployed a complex CTE combining `ROW_NUMBER()` and `GROUP_CONCAT()` to automatically generate a readable, string-aggregated list of the Top 3 spending countries for every music genre.
+This included:
+- identifying higher-value customers,
+- comparing country-level performance,
+- evaluating customer spending behavior,
+- and spotting stronger and weaker markets.
 
-### 🎼 Phase 3: Product Intelligence & Catalog Strategy
-**Objective:** Audit catalog health, evaluate product-market fit by content type, and identify actionable areas for inventory optimization.
-* **Dead Stock Identification:** Used `COALESCE` to handle zero-revenue items and built a dynamic flagging system to identify "Dead Stock" (genres with >50 tracks but <20% sell-through rate).
-* **Duration Strategy:** Implemented `CASE WHEN` statements to segment tracks by duration, discovering that consumers heavily favor tracks in the '4-6 minute' (long) range.
-* **Upselling Potential:** Algorithmically classified album performance into 'High/Medium/Low' tiers based on mathematically derived completion rates, highlighting opportunities for "Complete My Album" discounts.
+### 🎼 Product Analysis
+This section focused on the performance of tracks, albums, and genres.
 
----
-
-## 💡 Strategic Business Insights & Recommendations
-
-Based on the end-to-end analysis of the Chinook database, we extracted the following actionable recommendations to optimize revenue, marketing, and catalog health:
-
-### 💰 Phase 1: Sales & Revenue Strategy
-* 🛒 **Basket Size vs. Premium:** High-value invoices are driven by bulk purchases (larger basket sizes), not premium-priced items. 
-  * **Recommendation:** Push "Bundle Offers" (e.g., Buy 10 tracks, get 1 free) to naturally increase Average Order Value (AOV).
-* 📉 **Financial Trajectory:** Automated YoY tracking revealed consistent mid-term growth, but flagged a decline in the final recorded year. 
-  * **Recommendation:** Deploy "Win-Back" email campaigns offering targeted discounts to churned users before the fiscal year ends.
-* 🏙️ **Urban Market Efficiency:** Cities like Prague matched others (e.g., São Paulo) in transaction volume but generated significantly higher revenue per order. 
-  * **Recommendation:** Localize premium ad budgets to high-AOV (Average Order Value) cities rather than treating all urban markets equally.
-
-### 🌍 Phase 2: Customer Demographics & Targeting
-* 💎 **The "Upper-Middle" Cohort:** Beyond the top 5 VIPs, we isolated a secondary cohort of 20 customers who spend just above the global average. 
-  * **Recommendation:** Launch aggressive cross-sell campaigns specifically for this cohort to graduate them into the VIP tier.
-* 🚀 **International ARPU:** While the USA has the most users, calculating Average Revenue Per User (ARPU) revealed smaller international markets with much higher spending power per capita. 
-  * **Recommendation:** Reallocate customer acquisition budgets towards these high-ARPU international countries to maximize ROI.
-* 🎯 **Geo-Musical Mapping:** We algorithmically mapped the "Top 3 Spending Countries" for every single genre. 
-  * **Recommendation:** Use this as a blueprint for hyper-targeted ad spend (e.g., automatically routing Latin Music promotions directly to the most profitable regions).
-
-### 🎼 Phase 3: Product Intelligence & Catalog Strategy
-* 📦 **Dead Stock Identification:** Certain genres have massive inventory (50+ tracks) but a sell-through rate of under 20%. 
-  * **Recommendation:** Halt procurement budgets for these underperforming genres immediately. Liquidate current inactive tracks via discounted bundles.
-* ⏱️ **Duration Strategy (The Sweet Spot):** Data segmentation proves that consumers heavily favor tracks in the '4-6 minute' (Long) range. 
-  * **Recommendation:** Prominently feature 4-6 minute tracks on the storefront homepage and prioritize this duration in future catalog acquisitions.
-* 💿 **Upselling Potential (Album Completion Gap):** Algorithmic classification of album performance highlights that many users buy single tracks rather than full albums. 
-  * **Recommendation:** Implement a dynamic "Complete My Album" feature. If a user buys tracks from an album, offer them the remaining tracks at a dynamic discount.
+It covered:
+- best-selling genres,
+- weak-performing categories,
+- track duration patterns,
+- and possible bundling or upselling opportunities.
 
 ---
 
-## 💻 Tech Stack & Key SQL Concepts
-* **RDBMS:** MySQL
-* **Advanced Techniques:** Window Functions (`OVER`, `PARTITION BY`, `LAG`, `ROW_NUMBER`), Common Table Expressions (CTEs), Recursive CTEs, Data Bucketing (`NTILE`, `CASE WHEN`), String Aggregation (`GROUP_CONCAT`), Dynamic Views.
-* **Data Visualization:** Canva Presentations (See `/Presentation` folder).
+## 🛠️ SQL Concepts Applied
+
+<p align="left">
+  <img src="https://img.shields.io/badge/JOIN-Used-informational?style=flat-square&color=1F6FEB" />
+  <img src="https://img.shields.io/badge/Subqueries-Applied-informational?style=flat-square&color=1F6FEB" />
+  <img src="https://img.shields.io/badge/CTEs-Used-informational?style=flat-square&color=1F6FEB" />
+  <img src="https://img.shields.io/badge/Recursive%20CTE-Applied-informational?style=flat-square&color=1F6FEB" />
+  <img src="https://img.shields.io/badge/Window%20Functions-Used-informational?style=flat-square&color=1F6FEB" />
+  <img src="https://img.shields.io/badge/Views-Created-informational?style=flat-square&color=1F6FEB" />
+  <img src="https://img.shields.io/badge/CASE%20WHEN-Used-informational?style=flat-square&color=1F6FEB" />
+</p>
+
+Main techniques used in the project:
+- `JOIN`
+- `GROUP BY`
+- Aggregate functions
+- Subqueries
+- `CASE WHEN`
+- Common Table Expressions (`CTEs`)
+- Recursive CTEs
+- Window functions
+- Ranking functions
+- Views
+- String aggregation
 
 ---
 
-## 👥 Contributors & Acknowledgements
-This project was a collaborative effort and successfully completed as part of the **NTI Data Analysis Track**. 
+## 💡 Business Questions Addressed
 
-A special thanks to my project partner for the incredible teamwork. We worked closely together on writing complex SQL queries, optimizing data architecture, and extracting the final business insights.
+Some of the main questions I tried to answer through this analysis were:
 
-* 👨‍💻 **[Samir Hendawy](https://github.com/SamirHendawy)**   - Data Analyst
-* 👨‍💻 **[Eng. Abd El Rahman Sadek Kamel Sadek](https://github.com/AbdulrahmanSadik)**  - Data Analyst & Project Partner
+- What drives higher invoice value?
+- Which customers contribute the most revenue?
+- Which countries and cities perform better?
+- Which genres and products perform well or underperform?
+- Are larger sales driven by premium pricing or by basket size?
+- Where can the business improve targeting and catalog decisions?
 
-Special thanks to the **NTI** instructors and mentors for their guidance throughout this track.
+---
+
+## 🚀 Tools & Resources
+
+- <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" width="16" height="16"> **MySQL**
+- <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" width="16" height="16"> **GitHub**
+- <img src="https://cdn.simpleicons.org/canva/00C4CC" alt="Canva" width="16" height="16"> **Canva**
+- 🧩 ERD / schema visualization tools
+
+### 🔗 Project Links
+- 📊 **Presentation:** [View on Canva](https://canva.link/ovvgrz1o1yuszva)
+- 💾 **Dataset Source:** [Chinook Database Repository](https://github.com/lerocha/chinook-database)
+
+---
+
+## 🤝 Collaboration
+
+This project was completed collaboratively with **[Samir Hendawy](https://github.com/SamirHendawy)**.
+
+We worked together on the analysis process, SQL logic, and overall project development.  
+This version is published on my GitHub profile as part of my personal learning portfolio.
+
+---
+
+## 👨‍💻 Author
+
+**Abd El Rahman Sadek**  
+<img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" width="16" height="16"> GitHub: [AbdulrahmanSadik](https://github.com/AbdulrahmanSadik)
+
+---
+
+## ⭐ Final Note
+
+This project reflects an important step in my learning journey in **SQL** and **data analysis**.
+
+It helped me practice not only writing queries, but also:
+- thinking in a more analytical way,
+- understanding relational data in a business context,
+- and presenting technical work as a portfolio project.
